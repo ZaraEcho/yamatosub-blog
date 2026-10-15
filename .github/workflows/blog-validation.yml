@@ -63,5 +63,65 @@ jobs:
           else
             node scripts/blog-ci.mjs .
           fi
-        # No import token, no publishing, no merge operation in this workflow.
+        # No import token, no publishing, no merge operation in this validation job.
         # GitHub token is read-only, used only to inventory other open article PRs.
+
+  # One-time authorized diagnostic, isolated from the read-only PR validation job.
+  import-connection-test:
+    name: import-connection-test (one-time draft)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: blog-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    concurrency:
+      group: import-connection-test-20261015
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Run only when this diagnostic is first introduced
+        id: first
+        env:
+          BEFORE: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$BEFORE" != "0000000000000000000000000000000000000000"
+          git show "$BEFORE:.github/workflows/blog-validation.yml" > /tmp/previous-validation.yml
+          if grep -q 'group: import-connection-test-20261015' /tmp/previous-validation.yml; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.first.outputs.run == 'true'
+        with:
+          node-version: '24'
+      - name: Import one clearly labelled diagnostic draft
+        if: steps.first.outputs.run == 'true'
+        env:
+          IMPORT_URL: ${{ secrets.YAMATOSUB_BLOG_IMPORT_URL }}
+          IMPORT_TOKEN: ${{ secrets.YAMATOSUB_BLOG_IMPORT_TOKEN }}
+          MINIMUM_CHARACTERS: ${{ vars.BLOG_MINIMUM_CHARACTERS }}
+          MINIMUM_CONFIRMED: ${{ vars.BLOG_MINIMUM_CONFIRMED }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import { validateArticle } from './scripts/blog-validation.mjs';
+          const {IMPORT_URL:url,IMPORT_TOKEN:token}=process.env;
+          if(url!=='https://www.yamatosub.com/api/internal/blog-import'||!token)throw Error('Import Secrets missing or URL differs from approved endpoint');
+          if(process.env.MINIMUM_CONFIRMED!=='true'||process.env.MINIMUM_CHARACTERS!=='1200')throw Error('Expected confirmed runtime minimum 1200');
+          const paragraph='这是一篇导入连接测试稿，不是正式博客，请勿公开发布。它只用于检查新仓库保存的导入地址、令牌、正文长度设置与网站草稿导入接口能否配合工作。重复出现的说明文字是测试填充，不是写作示例，不代表产品功能、用户经历或研究结论。检查完成后请在后台将这篇测试稿保留为草稿，日常内容仍按原编辑规划和查重规则执行。';
+          const article={title:'【导入测试，请勿发布】新仓库连接检查 2026-10-15',slug:'import-connection-test-20261015',excerpt:'用于验证 GitHub Actions 到网站的草稿导入连接，不是正式文章。',content:Array(12).fill('<p>'+paragraph+'</p>').join(''),category:'字幕教程',tags:['导入测试'],seoTitle:'导入连接测试稿，请勿发布',seoDescription:'新仓库草稿导入连接检查，仅供管理员验证。',source:'codex-scheduled-task'};
+          const checked=validateArticle(article,{minimum:1200});
+          console.log(JSON.stringify({test:true,slug:article.slug,plainLength:checked.plainLength,minimum:1200}));
+          // No automatic retry: a timeout might occur after insertion.
+          const response=await fetch(url,{method:'POST',redirect:'error',signal:AbortSignal.timeout(60000),headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(article)});
+          let data;try{data=await response.json();}catch{throw Error('Import response was not JSON; HTTP '+response.status);}
+          console.log(JSON.stringify({http:response.status,ok:data.ok,id:data.id,slug:data.slug,status:data.status,error:typeof data.error==='string'?data.error:undefined}));
+          if(!response.ok||data.ok!==true||data.slug!==article.slug||!data.id)throw Error('Import not confirmed; inspect website before any retry');
+          if(data.status!=='draft')throw Error('Website did not return draft; inspect test article immediately; no settings were changed');
+          JS
