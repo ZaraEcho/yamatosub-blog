@@ -1,0 +1,234 @@
+{
+  "purpose": "历史查重索引；不含正文，不作为投递文件，不重投；状态未经新仓库核验",
+  "articles": [
+    {
+      "date": "2026-09-30",
+      "title": "SRT 字幕时间轴不准确怎么办？从整体偏移到局部校准",
+      "slug": "fix-srt-subtitle-timeline",
+      "excerpt": "先判断字幕是固定偏移、逐渐失同步还是局部错位，再按步骤调整并检查导出的 SRT 文件。",
+      "category": "字幕教程",
+      "tags": [
+        "SRT",
+        "时间轴",
+        "字幕同步",
+        "字幕教程"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-01",
+      "title": "日剧没有中文字幕怎么办？先判断有没有日文字幕",
+      "slug": "japanese-drama-no-chinese-subtitles",
+      "excerpt": "日剧已有视频却没有中文字幕时，先分辨内嵌字幕、独立字幕、硬字幕与无字幕，再选择翻译或语音识别，并校对时间轴。",
+      "category": "字幕教程",
+      "tags": [
+        "日剧字幕",
+        "日文字幕",
+        "中文字幕",
+        "字幕翻译"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-02",
+      "title": "日语字幕里人名和称呼不一致，怎样逐项校对？",
+      "slug": "consistent-japanese-subtitle-names",
+      "excerpt": "同一个人物出现不同译名，或敬称忽然变化时，先建立译名清单，再按原文、人物关系与命中位置逐项校对，保留合理的称呼变化。",
+      "category": "字幕教程",
+      "tags": [
+        "字幕校对",
+        "日语人名",
+        "称呼一致性",
+        "字幕协作"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-03",
+      "title": "日语采访听不清？把字幕变成能回头复听的笔记",
+      "slug": "japanese-interview-listening-notes",
+      "excerpt": "反复拖进度条却找不到那句日语？用现有日文字幕记下时间、原句和没听清的地方，让下次复听从上次卡住的位置继续。",
+      "category": "日语学习",
+      "tags": [
+        "日语听力",
+        "采访字幕",
+        "复听笔记",
+        "日文字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-04",
+      "title": "字幕下载了却对不上？先判断是不是同一个视频版本",
+      "slug": "subtitle-video-version-match",
+      "excerpt": "字幕台词没错却越播越偏，通常不是翻译问题。对照文件名、总时长和三处对白，判断是固定偏移、剪辑差异，还是字幕版本选错。",
+      "category": "字幕教程",
+      "tags": [
+        "字幕匹配",
+        "视频版本",
+        "SRT",
+        "字幕同步"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-05",
+      "title": "Netflix 日剧没有中文字幕，怎样查语言设置和下载选项",
+      "slug": "netflix-japanese-drama-chinese-subtitles",
+      "excerpt": "中文界面不等于中文字幕已提供。从同一集的语言列表、个人资料偏好、下载内容和设备差异查起，避免反复改错设置。",
+      "category": "字幕教程",
+      "tags": [
+        "Netflix",
+        "日剧",
+        "中文字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-06",
+      "title": "SRT 和 VTT 到底该选哪个？看播放位置就够了",
+      "slug": "srt-vtt-differences",
+      "excerpt": "SRT 和 VTT 都能保存字幕文字与时间轴，真正影响选择的是字幕要在本地播放器、剪辑软件还是网页视频里使用。",
+      "category": "字幕知识",
+      "tags": [
+        "SRT",
+        "WebVTT",
+        "字幕格式"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-07",
+      "title": "中文字幕一行写多少字？16 字只是排版起点",
+      "slug": "chinese-subtitle-line-length",
+      "excerpt": "中文字幕并没有适用于所有播放器的统一行长。先看交付平台，再用 16 字作为试排起点，结合断句、画面宽度和停留时间逐条调整。",
+      "category": "字幕知识",
+      "tags": [
+        "中文字幕",
+        "字幕分行",
+        "字幕制作"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-08",
+      "title": "字幕错译怎么提，别人才能改得动",
+      "slug": "subtitle-translation-correction-record",
+      "excerpt": "一条能落地的字幕纠错，要让接手的人找得到位置、看得懂判断，也知道该改哪一版文件。时间码、原文、现译和理由缺一项，沟通就可能来回重做。",
+      "category": "字幕教程",
+      "tags": [
+        "字幕校对",
+        "字幕纠错",
+        "团队协作"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-09",
+      "title": "看懂就够了，还要下载字幕吗？",
+      "slug": "watch-online-or-save-subtitles",
+      "excerpt": "只想看懂一遍、回来找几句话、继续改译文，需要的东西并不相同。比较在线字幕、时间点笔记和字幕文件各自适合的情况。",
+      "category": "字幕教程",
+      "tags": [
+        "在线观看",
+        "字幕保存",
+        "观看选择"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-10",
+      "title": "迅雷播放器怎么加载下载的字幕？",
+      "slug": "load-local-subtitles-in-xunlei-player",
+      "excerpt": "视频和字幕是两个文件，怎样一起看？按迅雷影音电脑端官方帮助，说明打开视频、手动加载字幕、同名自动加载，以及选完仍没看到中文时该看哪里。",
+      "category": "字幕教程",
+      "tags": [
+        "迅雷播放器",
+        "字幕加载",
+        "本地字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-11",
+      "title": "日剧字幕搜不到怎么办，用原名和集数找",
+      "slug": "find-japanese-drama-subtitles",
+      "excerpt": "中文剧名搜不到字幕，换日文原名、集数和整季关键词继续找。给出能直接替换的搜索写法，并说明什么时候用站内搜索、双引号和限定网站。",
+      "category": "字幕教程",
+      "tags": [
+        "日剧字幕",
+        "字幕寻找",
+        "搜索字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-12",
+      "title": "有日文 SRT，直接翻译还是重新识别视频",
+      "slug": "translate-japanese-srt-or-transcribe-video",
+      "excerpt": "手里已经有日文 SRT 时，通常直接翻译即可。教你判断字幕文件能不能用，并按当前计费说明比较字幕翻译和视频重新识别的成本。",
+      "category": "软件工具",
+      "tags": [
+        "日文字幕",
+        "字幕翻译",
+        "音视频转字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-13",
+      "title": "看日剧学日语，中文字幕什么时候开",
+      "slug": "when-to-use-chinese-subtitles-for-japanese-learning",
+      "excerpt": "中文字幕一开就只顾看中文，关掉又听不懂。用同一小段切换中文、日文和无字幕，兼顾追剧情、认台词和练耳朵。",
+      "category": "日语学习",
+      "tags": [
+        "看日剧学日语",
+        "中文字幕",
+        "日文字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-14",
+      "title": "SRT 字幕怎么加到视频里并导出",
+      "slug": "add-srt-subtitles-to-video-and-export",
+      "excerpt": "播放器里有字幕，视频发给别人却没字，多半是只加载了外挂 SRT。教你分清自己播放和导出成片，并用剪映电脑版把字幕放进视频。",
+      "category": "软件工具",
+      "tags": [
+        "SRT字幕",
+        "剪映",
+        "视频字幕"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "YouTube 日文字幕怎么变成中文，安卓手机设置方法",
+      "slug": "youtube-japanese-subtitles-to-chinese-android",
+      "excerpt": "手机菜单明明是中文，视频字幕却还是日文。按 YouTube 安卓端官方说明，找到字幕语言和自动翻译入口，并分清没有字幕、画面自带日文与译文出错。",
+      "category": "字幕教程",
+      "tags": [
+        "YouTube",
+        "中文字幕",
+        "安卓手机"
+      ],
+      "deliveryStatus": "not-reverified",
+      "publicationStatus": "unknown"
+    }
+  ]
+}
