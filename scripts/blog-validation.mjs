@@ -99,7 +99,9 @@ export function validateChanges(changes) {
   check(changes.every(c=>['A','M'].includes(c.status)),'deletions/renames/type changes forbidden');
   const articles=changes.filter(c=>c.path.startsWith('automation/blog-inbox/'));
   if(articles.length){check(articles.length===1&&articles[0].status==='A','one NEW article required');check(changes.length===2&&changes.some(c=>c.path==='automation/seo-topics.json'&&c.status==='M'),'article PR scope violation');return 'article';}
-  check(changes.every(c=>CONFIG.has(c.path)),'configuration scope violation');return 'configuration';
+  // Restore this exact importer path only as a human-reviewed configuration addition.
+  // Existing importer edits and any mixture with article data remain forbidden.
+  check(changes.every(c=>CONFIG.has(c.path)||(c.status==='A'&&c.path==='.github/workflows/yamatosub-blog-import.yml')),'configuration scope violation');return 'configuration';
 }
 export function validateDuplicates(a,existing) {
   for(const b of existing)check(a.slug!==b.slug&&a.title.toLowerCase()!==b.title.toLowerCase(),'duplicate article title/slug');

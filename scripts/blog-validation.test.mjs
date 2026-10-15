@@ -28,6 +28,14 @@ test('new article plus topics accepted',()=>assert.equal(validateChanges(changes
 test('old article modifications, deletions and mixed code forbidden',()=>{assert.throws(()=>validateChanges(changes().map(c=>({...c,status:'M'}))));assert.throws(()=>validateChanges([...changes(),{status:'M',path:'app/page.tsx'}]));assert.throws(()=>validateChanges([{status:'D',path:'automation/README.md'}]));});
 test('configuration result is separate from article mode',()=>assert.equal(validateChanges([{status:'A',path:'.github/workflows/blog-validation.yml'}]),'configuration'));
 test('existing import workflow cannot be changed in configuration mode',()=>assert.throws(()=>validateChanges([{status:'M',path:'.github/workflows/yamatosub-blog-import.yml'}])));
+test('exact importer may be added only as configuration, never as article content',()=>{
+  const importer={status:'A',path:'.github/workflows/yamatosub-blog-import.yml'};
+  assert.equal(validateChanges([importer]),'configuration');
+  assert.throws(()=>validateChanges([...changes(),importer]),/article PR scope/);
+});
+test('importer restoration does not permit arbitrary workflows or deleting existing importer',()=>{
+  for(const c of [{status:'A',path:'.github/workflows/other.yml'},{status:'D',path:'.github/workflows/yamatosub-blog-import.yml'},{status:'M',path:'.github/workflows/yamatosub-blog-import.yml'}])assert.throws(()=>validateChanges([c]));
+});
 test('case-insensitive title and exact slug duplicate detection',()=>{assert.throws(()=>validateDuplicates(article(),[{title:article().title,slug:'other'}]));assert.throws(()=>validateDuplicates({...article(),title:'HELLO'},[{title:'hello',slug:'other'}]));assert.throws(()=>validateDuplicates(article(),[{title:'other',slug:article().slug}]));});
 test('file slug, calendar day, same-day production validated',()=>{assert.equal(validateDatePath(changes()[0].path,article(),[]),'2026-09-30');assert.throws(()=>validateDatePath(changes()[0].path,article(),['automation/blog-inbox/2026-09-30-other.json']));assert.throws(()=>validateDatePath('automation/blog-inbox/2026-02-30-subtitle-example.json',article(),[]));});
 test('only one paired topic transition; unknown historical fields retained',()=>validateTopicsDiff(before(),after(),{date:'2026-09-30',slug:'subtitle-example'}));
