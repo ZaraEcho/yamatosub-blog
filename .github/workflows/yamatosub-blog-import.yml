@@ -1,0 +1,48 @@
+name: Import YamatoSub blog drafts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/blog-inbox/*.json'
+
+jobs:
+  import-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Find changed article files
+        id: changed
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$BEFORE" =~ ^0+$ ]]; then
+            files=$(git ls-tree -r --name-only "$AFTER" -- 'automation/blog-inbox/*.json' | tr '\n' ' ')
+          else
+            files=$(git diff --name-only "$BEFORE" "$AFTER" -- 'automation/blog-inbox/*.json' | tr '\n' ' ')
+          fi
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+      - name: Import articles
+        if: steps.changed.outputs.files != ''
+        env:
+          IMPORT_URL: ${{ secrets.YAMATOSUB_BLOG_IMPORT_URL }}
+          IMPORT_TOKEN: ${{ secrets.YAMATOSUB_BLOG_IMPORT_TOKEN }}
+          FILES: ${{ steps.changed.outputs.files }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$IMPORT_URL"
+          test -n "$IMPORT_TOKEN"
+          for file in $FILES; do
+            echo "Importing $file"
+            curl --fail-with-body --silent --show-error \
+              -X POST "$IMPORT_URL" \
+              -H "Authorization: Bearer $IMPORT_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data-binary "@$file"
+          done
