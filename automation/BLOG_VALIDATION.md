@@ -1,6 +1,6 @@
 # blog-validation 合并前检查
 
-本配置不更改 yamatosub-blog-import.yml，不调用导入接口，不使用导入令牌，不合并 PR。文章合并后继续沿用现有 main push → GitHub Actions → 网站草稿链路。
+验证 job 不调用导入接口、不使用导入令牌、不合并 PR；另有用户授权的一次性诊断 job，已导入标注测试的草稿，后续常规配置推送不重投。原 yamatosub-blog-import.yml 保持不变。文章合并后继续沿用现有 main push → GitHub Actions → 网站草稿链路。
 
 ## 检查范围与信任边界
 
@@ -9,7 +9,7 @@
 - 配置 PR 走明确文件白名单，不含现有发布工作流；运行候选验证脚本测试，仍需人工审核，结果返回 `articleAutoMergeEligible:false`。检查通过不授权自动合并配置。
 - 安装后，文章 PR 的验证器与算法从 PR base commit 加载，文章分支只作为 git blob 数据读取，不执行文章 PR 中的脚本。首次配置 PR 没有 base 验证器，使用配置分支自测作为 bootstrap，需要人工审查。
 - GitHub token 仅 contents/pull-requests read，测试子进程不继承 READ_TOKEN。无网站凭据，无写权限。不使用 pull_request_target；不存在文章提交后自动运行投稿脚本的流程。
-- 启用 main 必需检查前，先合并本 PR 并确认 main push 自测成功；保护规则要求当前 head 检查、分支更新到最新 base，保留审核要求。不要将 import-draft 设为合并前检查。
+- 用户于2026-10-15选择不设置分支保护：main 不设 GitHub 必需检查，由任务强制核对最新 head 的 blog-validation=success 和其他适用检查，全部完成后复核并正常合并。不得在等待检查时调用 GitHub 自动合并。import-draft 仍只在合并后运行。
 
 ## 投稿约定与导入源码
 
@@ -28,7 +28,7 @@ scripts/import-rich-text.mjs 直接移植 3.2.5 lib/rich-text.ts，仅移除 Typ
 - BLOG_MINIMUM_CHARACTERS：已核实的整数（300–20000）。
 - BLOG_MINIMUM_CONFIRMED：true，仅在上述值已确认且与当前部署一致后设置。
 
-变量未设置或未确认时，文章 PR 检查失败并显示 ONLINE MINIMUM UNCONFIRMED，不能开启文章自动合并。配置 PR 的自测不受该阻塞影响。文章 PR 中给出本次后台值核验依据和日期，值变化时同步变量；本工具不能自动读取生产数据库。
+变量未设置或未确认时，文章 PR 检查失败并显示 ONLINE MINIMUM UNCONFIRMED，不能合并文章 PR。配置 PR 的自测不受该阻塞影响。文章 PR 中给出本次后台值核验依据和日期，值变化时同步变量；本工具不能自动读取生产数据库。
 
 HTML 检查比服务端清洗更严格：只允许源码白名单标签与输入属性，要求属性双引号、结构闭合；拒绝注释、事件/style/srcdoc、未知标签属性、重复属性及危险链接。拒绝协议相对 URL、反斜线、控制字符、URL 凭据和编码混淆；图片只允许站内路径或 https://www.yamatosub.com 来源。mailto 仅用于链接。服务端自动生成 rel/loading，稿件不用自行填写。若需其他图片来源，先独立配置审核。
 
@@ -45,10 +45,10 @@ HTML 检查比服务端清洗更严格：只允许源码白名单标签与输入
 1. 确认当前main包含完整规划、导入依据、验证器和工作流；旧配置PR编号不是本仓库启用门槛。
 2. 检查本 PR 的 `blog-validation` 和合并到 main 后的 push 自测，记录实际结果；bootstrap 结果不冒充稿件端到端通过。
 3. 确认后台 minimumCharacters，并设置以上两个非敏感仓库变量。
-4. 管理员在 Settings → General → Pull Requests 勾选 Allow auto-merge；Settings → Branches → Add branch protection rule，匹配 main，启用 Require a pull request before merging、Require status checks to pass before merging，选择 blog-validation，启用 Require branches to be up to date before merging。保留已有审核数和其他限制，不添加绕过，不允许强推/删除；若已有规则则编辑原规则，不另造更弱规则。
-5. 对未来本任务创建的文章 PR，编辑自检通过并创建 PR 后，先核对范围、同日唯一稿、无冲突、最新 head SHA、main 必需检查及现有审核要求。必需检查已触发且仍在等待时请求 GitHub 自动合并；若检查先于请求完成且 PR 已可合并，或自动合并请求因此被拒绝，重新核对上述条件及全部必需检查已成功后，通过正常 PR 合并操作并指定预期 head SHA；不能直接推 main、绕过保护或合并配置 PR。检查失败、状态无法核实或审核未满足时保留 PR，必要时取消尚存的自动合并请求，修复并重新检查后重试。合并后观察对应 SHA 的导入响应与网站草稿状态。
+4. 不再要求分支保护或 Allow auto-merge；不通过工具创建、删除或修改安全设置。单人维护不额外要求另一人审批；若仓库另有生效的审核要求，仍须满足。
+5. 只处理本任务能确认创建的文章 PR，不自动合并配置 PR。用户明确选择不设置分支保护，不再把 main 受保护、GitHub 必需检查配置或 Allow auto-merge 作为运行门槛，也不调用 GitHub Enable auto-merge；检查等待时仅保留 PR。任务仍强制要求最新 head SHA 的 blog-validation 已触发且 conclusion=success，并核对所有适用于本 PR 的其他检查与提交状态：零检查、未触发、结果缺失、等待、失败、取消、过期或状态无法确认都不得合并。一次性导入诊断 job 在 PR 上按设计 skipped，不是文章合并检查；不能把 blog-validation 的 skipped/neutral 当通过。所有相关检查完成成功后，再读 PR、最新 head SHA、main SHA、完整 diff、当天唯一稿件、冲突、分支是否包含最新 main 和现存审核要求；无未解决的变更请求，全部满足才用正常 PR 合并操作并指定预期 head SHA。复核期间 head 或 main 改变时重新核对；需要更新分支则更新后等新提交检查，不沿用旧结果。失败、冲突、审核未满足、权限不足或无法核实时保留 PR 并报告。若存在旧的 GitHub 自动合并请求先取消，不让无保护分支在检查完成前合并。绝不直接推 main、不使用管理员强制合并、不修改安全设置、凭据或发布工作流；若以后出现保护或审核要求仍须满足，不能绕过。此模式由任务主动把关，GitHub 没有强制检查拦截，不得宣称存在服务器端保护。 合并后观察对应 SHA 的原导入工作流业务响应与草稿状态。
 
-当前 GitHub 连接没有仓库设置/分支保护写工具，读完整保护细节也曾返回 403。上述第 4 步需要管理员手动完成；不能据此报告已开启。网站仍保持 draft，不更改 runtime.defaultStatus。
+此模式的检查约束由任务执行，GitHub 不会强制阻止未经检查的人工合并。`articleAutoMergeEligible` 是验证器保留的字段名，表示稿件范围与校验符合机器规则，不授权调用 Enable auto-merge；配置 PR 该值仍为 false。网站仍保持 draft，不更改 runtime.defaultStatus。
 
 ## 本地检查
 
@@ -62,4 +62,4 @@ node --test scripts/blog-validation.test.mjs
 
 历史正文未上传；验证器从 PR 的可信 base SHA 读取 `automation/article-history.json`，检查旧标题、slug 和同日稿件，并检查选题池已有 usedAt，不能用删去正文绕过去重。索引缺失或格式损坏时文章检查失败；日常文章 PR 不得修改索引。索引中的投递、公开状态未经重新核验，不作为成功凭据。搜索意图查重和最近六篇实际正文重心仍由编辑核对，自动检查不宣称覆盖这两项。
 
-本配置 PR 只恢复验证：不会导入、公开或合并文章。配置 PR 上的检查成功与合并后 main 自测成功分开确认；运行时最低值未经管理员确认时，配置自测可运行，但文章检查必须失败。导入工作流、Secrets、Variables、分支保护和自动合并仍未恢复，原任务继续暂停。
+本配置 PR 只恢复验证：不会导入、公开或合并文章。配置 PR 上的检查成功与合并后 main 自测成功分开确认；运行时最低值未经管理员确认时，配置自测可运行，但文章检查必须失败。导入工作流已恢复，管理员确认线上最低值1200，独立连接测试已返回HTTP 200、ok=true、status=draft；原任务已启用。分支保护不再是启用条件，文章仍须按最新第11条完成全部检查和复核。
