@@ -1,0 +1,67 @@
+name: Blog validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/blog-validation.yml'
+      - 'scripts/blog-*.mjs'
+      - 'scripts/import-rich-text.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: blog-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  blog-validation:
+    name: blog-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout candidate data
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Checkout trusted base validator
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted-base
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate configuration or article
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          MINIMUM_CHARACTERS: ${{ vars.BLOG_MINIMUM_CHARACTERS }}
+          MINIMUM_CONFIRMED: ${{ vars.BLOG_MINIMUM_CONFIRMED }}
+          READ_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$BASE_SHA" ]]; then
+            git fetch --no-tags origin "$BASE_SHA" "$HEAD_SHA"
+            if [[ -f trusted-base/scripts/blog-ci.mjs ]]; then
+              node trusted-base/scripts/blog-ci.mjs . trusted-base
+            else
+              node scripts/blog-ci.mjs . trusted-base
+            fi
+          else
+            node scripts/blog-ci.mjs .
+          fi
+        # No import token, no publishing, no merge operation in this workflow.
+        # GitHub token is read-only, used only to inventory other open article PRs.
