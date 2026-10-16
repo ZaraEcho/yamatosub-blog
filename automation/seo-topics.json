@@ -894,7 +894,7 @@
   {
     "topic": "字幕翻译为什么有的按分钟收费，有的按字数？",
     "intent": "知识",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "关心字幕服务与内容供应的观众和创作者",
     "materials": "当前官方价格与计费单位",
     "primaryNeed": "比较不同收费输入，避免把单位不同的单价直接比贵便宜",
@@ -910,7 +910,10 @@
     "userQuestion": "字幕翻译为什么有的按分钟收费，有的按字数？",
     "readerOutcome": "比较不同收费输入，避免把单位不同的单价直接比贵便宜",
     "editorialPriority": "P3",
-    "editorialTrack": "行业分析"
+    "editorialTrack": "行业分析",
+    "usedAt": "2026-10-16",
+    "articleSlug": "subtitle-translation-pricing-minutes-or-characters",
+    "articleTitle": "字幕翻译按分钟和按字数收费怎么算"
   },
   {
     "topic": "迅雷播放器怎么加载下载的字幕？",
