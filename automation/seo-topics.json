@@ -671,7 +671,7 @@
   {
     "topic": "视频已经有日文字幕在画面上，为什么不能当 SRT 直接翻译",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "手里只有硬字幕视频的观众",
     "materials": "画面硬字幕视频",
     "primaryNeed": "文字字幕、OCR 与语音识别差别",
@@ -685,7 +685,10 @@
     "publishedUrl": null,
     "editorialBatch": "audience-plan-20260930",
     "contentFocus": "观看选择",
-    "writingForm": "操作"
+    "writingForm": "操作",
+    "usedAt": "2026-10-17",
+    "articleSlug": "translate-japanese-subtitles-burned-into-video",
+    "articleTitle": "视频画面里的日文字幕怎么翻成中文"
   },
   {
     "topic": "在线观看和下载字幕分别适合什么情况？先看你要不要保存文件",
