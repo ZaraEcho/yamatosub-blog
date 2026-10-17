@@ -580,7 +580,7 @@
   {
     "topic": "实时日语字幕为什么总慢半拍？识别和翻译分别在等什么",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "浏览器日语内容观众",
     "materials": "在线音视频",
     "primaryNeed": "延迟原因与质量取舍",
@@ -600,7 +600,10 @@
     "readerOutcome": "用一手材料解释识别与翻译的等待，不编测试数字，不推荐未上线插件",
     "editorialPriority": "P3",
     "editorialTrack": "行业分析",
-    "editorialRevision": "needs-first-20261009"
+    "editorialRevision": "needs-first-20261009",
+    "usedAt": "2026-10-18",
+    "articleSlug": "live-chinese-subtitles-delay",
+    "articleTitle": "直播中文字幕延迟怎么办，分清卡顿和出字慢"
   },
   {
     "topic": "日本纪录片没有中文解说字幕，怎样处理旁白和专有名词",
