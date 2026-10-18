@@ -393,7 +393,7 @@
   {
     "topic": "射手网（伪）assrt 找字幕时，视频文件名有什么用",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "查找匹配字幕的观众",
     "materials": "视频文件名",
     "primaryNeed": "匹配信息与服务边界",
@@ -407,7 +407,10 @@
     "publishedUrl": null,
     "editorialBatch": "audience-plan-20260930",
     "contentFocus": "字幕寻找",
-    "writingForm": "解释"
+    "writingForm": "解释",
+    "usedAt": "2026-10-19",
+    "articleSlug": "find-subtitles-on-assrt-by-video-filename",
+    "articleTitle": "assrt 怎么用视频文件名找字幕"
   },
   {
     "topic": "日本综艺没人做字幕，识别时最容易错在哪些地方",
