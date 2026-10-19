@@ -517,7 +517,7 @@
   {
     "topic": "下载字幕以后手机看不到：先确认你用的是哪种播放方式",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "手机与云盘观看用户",
     "materials": "视频和外挂字幕",
     "primaryNeed": "系统播放器、云盘与第三方播放器区别",
@@ -537,7 +537,10 @@
     "readerOutcome": "分清本地播放器与网盘入口，并按核验设备说明可用办法",
     "editorialPriority": "P1",
     "editorialTrack": "用户问题",
-    "editorialRevision": "needs-first-20261009"
+    "editorialRevision": "needs-first-20261009",
+    "usedAt": "2026-10-20",
+    "articleSlug": "downloaded-subtitles-not-showing-on-phone",
+    "articleTitle": "手机字幕下载了却不显示怎么办"
   },
   {
     "topic": "日语采访想反复听，怎样整理字幕与复听记录",
