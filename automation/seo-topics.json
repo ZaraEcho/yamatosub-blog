@@ -67,11 +67,14 @@
   {
     "topic": "两份 SRT 字幕怎么合并成双语字幕",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "articleType": "学习",
     "targetAudience": "日语学习者",
     "contentFocus": "文件处理",
-    "writingForm": "操作"
+    "writingForm": "操作",
+    "usedAt": "2026-10-21",
+    "articleSlug": "merge-two-srt-files-into-bilingual-subtitles",
+    "articleTitle": "两份 SRT 怎么合并成中日双语字幕"
   },
   {
     "topic": "日语视频怎么生成中文字幕",
@@ -952,3 +955,4 @@
     "articleTitle": "迅雷播放器怎么加载下载的字幕？"
   }
 ]
+
