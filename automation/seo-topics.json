@@ -888,7 +888,7 @@
   {
     "topic": "机器字幕已经能生成了，人工还在做什么？",
     "intent": "知识",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "关心字幕服务与内容供应的观众和创作者",
     "materials": "自动字幕官方说明与可公开的一手制作材料",
     "primaryNeed": "区分识别、翻译和人工修改实际承担的工作",
@@ -904,7 +904,10 @@
     "userQuestion": "机器字幕已经能生成了，人工还在做什么？",
     "readerOutcome": "区分识别、翻译和人工修改实际承担的工作",
     "editorialPriority": "P3",
-    "editorialTrack": "行业分析"
+    "editorialTrack": "行业分析",
+    "usedAt": "2026-10-22",
+    "articleSlug": "what-humans-fix-after-auto-captions",
+    "articleTitle": "机器字幕生成后，人工还要改什么"
   },
   {
     "topic": "字幕翻译为什么有的按分钟收费，有的按字数？",
