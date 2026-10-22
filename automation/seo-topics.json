@@ -867,7 +867,7 @@
   {
     "topic": "为什么平台有日文字幕，却没有提供中文？",
     "intent": "知识",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "关心字幕服务与内容供应的观众和创作者",
     "materials": "官方语言说明与明确作品的可见选项",
     "primaryNeed": "解释实际语言供应限制及观众可做的选择",
@@ -883,7 +883,10 @@
     "userQuestion": "为什么平台有日文字幕，却没有提供中文？",
     "readerOutcome": "解释实际语言供应限制及观众可做的选择",
     "editorialPriority": "P3",
-    "editorialTrack": "行业分析"
+    "editorialTrack": "行业分析",
+    "usedAt": "2026-10-23",
+    "articleSlug": "platform-has-japanese-subtitles-but-no-chinese",
+    "articleTitle": "平台有日文字幕却没有中文怎么办"
   },
   {
     "topic": "机器字幕已经能生成了，人工还在做什么？",
@@ -958,3 +961,4 @@
     "articleTitle": "迅雷播放器怎么加载下载的字幕？"
   }
 ]
+
