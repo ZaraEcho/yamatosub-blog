@@ -371,7 +371,7 @@
   {
     "topic": "日剧只找到英文字幕，还能做中文字幕吗",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "只找到英文字幕的观众",
     "materials": "英文文字字幕",
     "primaryNeed": "二次翻译误差与可用处理路线",
@@ -391,7 +391,10 @@
     "readerOutcome": "判断英文来源是否可用，明确翻译输入、结果使用及二次翻译易丢失的信息",
     "editorialPriority": "P1",
     "editorialTrack": "用户问题",
-    "editorialRevision": "needs-first-20261009"
+    "editorialRevision": "needs-first-20261009",
+    "usedAt": "2026-10-24",
+    "articleSlug": "translate-english-subtitles-to-chinese-for-japanese-drama",
+    "articleTitle": "日剧只找到英文字幕怎么做中文字幕"
   },
   {
     "topic": "射手网（伪）assrt 找字幕时，视频文件名有什么用",
@@ -961,4 +964,5 @@
     "articleTitle": "迅雷播放器怎么加载下载的字幕？"
   }
 ]
+
 
