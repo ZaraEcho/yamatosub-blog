@@ -825,7 +825,7 @@
   {
     "topic": "在大和字幕翻译完，怎么下载字幕并用起来？",
     "intent": "教程",
-    "status": "pending",
+    "status": "used",
     "targetAudience": "已经有视频、字幕或翻译结果的用户",
     "materials": "已完成的字幕翻译任务",
     "primaryNeed": "找到结果文件并在一个已核验播放环境中使用",
@@ -841,7 +841,10 @@
     "userQuestion": "在大和字幕翻译完，怎么下载字幕并用起来？",
     "readerOutcome": "找到结果文件并在一个已核验播放环境中使用",
     "editorialPriority": "P2",
-    "editorialTrack": "产品使用"
+    "editorialTrack": "产品使用",
+    "usedAt": "2026-10-25",
+    "articleSlug": "download-and-load-subtitles-after-yamatosub-translation",
+    "articleTitle": "大和字幕翻译完成后怎么下载并加载字幕"
   },
   {
     "topic": "想给自己的视频加中文字幕，只下载字幕够了吗？",
@@ -964,5 +967,6 @@
     "articleTitle": "迅雷播放器怎么加载下载的字幕？"
   }
 ]
+
 
 
